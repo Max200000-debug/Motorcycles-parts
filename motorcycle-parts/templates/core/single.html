@@ -1,0 +1,29 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<div>
+    <h2>{{ item.name }}</h2>
+    <table>
+    {% for label, value in item.get_fields %}
+        <tr>
+            <td><strong>{{ label }}:</strong></td>
+            <td>{{ value }}</td>
+        </tr>
+    {% endfor %}
+    <tr>
+        <td><strong>Most Recent Shipment:</strong></td>
+        {% if item.shipment_set.last %}
+            <td><a href="{% url 'core:single-shipment' item.shipment_set.last.id %}">#{{ item.shipment_set.last }}</a></td>
+        {% else %}
+            <td>No shipments yet</td>
+        {% endif %}
+    </tr>
+    <tr>
+        <td><strong>Num. of Shipments:</strong></td>
+        <td>{{ item.shipment_set.count }}</td>
+    </tr>
+    </table>
+</div>
+
+{% endblock %}

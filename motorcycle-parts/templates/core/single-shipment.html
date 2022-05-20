@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<div>
+    <h2>Shipment #{{ shipment.id }}</h2>
+    <ul>
+    {% for isg in shipment.itemshipmentgroup_set.all %}
+        <li>
+            {% if isg.item %}
+                <h3><a href="{% url 'core:single' isg.item.id %}">{{ isg.item }}</a></h3>
+            {% else %}
+                <h3>Deleted Item</h3>
+            {% endif %}
+            <div>Qty: {{ isg.amount }}</div>
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

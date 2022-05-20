@@ -1,0 +1,23 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<form action="{% url 'core:process-shipment' %}" method="post">
+    {% csrf_token %}
+    {% if messages.error %}<h4>Error: {{ messages.error }}</h4>{% endif %}
+    <h1>creer un envoie</h1>
+    <p>Choose the desired quantities from the following items.</p>
+    <ul>
+    {% for item in object_list %}
+        <li>
+            <h2>{{ item.name }}</h2>
+            <div style="padding-bottom: 0.5rem">Qty: {{ item.quantity }}</div>
+            <input type="number" name={{ item.id }} id={{ item.id }}>
+            <label>units</label>
+        </li>
+    {% endfor %}
+    </ul>
+<input type="submit" value="Create Shipment">
+</form>
+
+{% endblock %}
